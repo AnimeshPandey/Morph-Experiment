@@ -1,7 +1,7 @@
 {
     "/*": {
-        "target": "https://www.anmshpndy.com",
-        "secure": false,
+        "target": "https://animeshpandey.github.io",
+        "secure": true,
         "logLevel": "debug"
     }
 }
