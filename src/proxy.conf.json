@@ -1,0 +1,7 @@
+{
+    "*": {
+        "target": "https://animeshpandey.github.io",
+        "secure": true,
+        "logLevel": "debug"
+    }
+}

@@ -15,39 +15,37 @@ export class MorphComponent implements OnInit {
 
   constructor() {}
 
-  extend(a, b) {
-    for (let key in b) {
-      if (b.hasOwnProperty(key)) {
-        a[key] = b[key];
-      }
-    }
-    return a;
-  };
-
-  getMousePos(ev) {
-    let posx = 0;
-    let posy = 0;
-    if (!ev) ev = window.event;
-    if (ev.pageX || ev.pageY) {
-      posx = ev.pageX;
-      posy = ev.pageY;
-    } else if (ev.clientX || ev.clientY) {
-      posx = ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-      posy = ev.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-    }
-    return {
-      x: posx,
-      y: posy
-    };
-  };
-
-
   ngOnInit() {
+
+    const extend = function(a, b) {
+      for( let key in b ) { 
+        if( b.hasOwnProperty( key ) ) {
+          a[key] = b[key];
+        }
+      }
+      return a;
+    };
+
+    const getMousePos = function(ev) {
+      let posx = 0;
+      let posy = 0;
+      if (!ev) ev = window.event;
+      if (ev.pageX || ev.pageY) 	{
+        posx = ev.pageX;
+        posy = ev.pageY;
+      }
+      else if (ev.clientX || ev.clientY) 	{
+        posx = ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+        posy = ev.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+      }
+      return { x : posx, y : posy };
+    };
+  
 
     const TiltObj = function (el, options = {}) {
       this.el = el;
-      this.options = this.extend({}, this.options);
-      this.extend(this.options, options);
+      this.options = extend({}, this.options);
+      extend(this.options, options);
       this.DOM = {};
       this.DOM.img = this.el.querySelector('.content__img');
       this.DOM.title = this.el.querySelector('.content__title');
@@ -101,7 +99,7 @@ export class MorphComponent implements OnInit {
 
     TiltObj.prototype._layout = function (ev) {
       // Mouse position relative to the document.
-      const mousepos = this.getMousePos(ev);
+      const mousepos = getMousePos(ev);
       // Document scrolls.
       const docScrolls = {
         left: document.body.scrollLeft + document.documentElement.scrollLeft,
